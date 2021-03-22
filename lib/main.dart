@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:learn_flutter_with_mobx/mobx/counter.dart';
+
+final CounterMobx counter = CounterMobx();
 
 void main() => runApp(RootApp());
 
@@ -23,9 +27,11 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '0',
-              style: TextStyle(fontSize: 80),
+            Observer(
+              builder: (context) => Text(
+                counter.value.toString(),
+                style: TextStyle(fontSize: 80),
+              ),
             ),
             SizedBox(
               height: 20,
@@ -34,14 +40,18 @@ class Home extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    counter.decrement();
+                  },
                   child: Icon(Icons.arrow_downward),
                 ),
                 SizedBox(
                   width: 20,
                 ),
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    counter.increment();
+                  },
                   child: Icon(Icons.arrow_upward),
                 ),
               ],
